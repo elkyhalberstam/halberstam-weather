@@ -1,7 +1,7 @@
 package halberstam.weather;
 
-import halberstam.weather.currentWeather.CurrentWeather;
-import halberstam.weather.fiveDayForcast.FiveDayForcast;
+import halberstam.weather.currentweather.CurrentWeather;
+import halberstam.weather.fivedayforcast.FiveDayForcast;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

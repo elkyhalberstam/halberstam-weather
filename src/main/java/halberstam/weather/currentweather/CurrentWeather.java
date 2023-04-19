@@ -1,4 +1,4 @@
-package halberstam.weather.currentWeather;
+package halberstam.weather.currentweather;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class CurrentWeather{
         public Temperature main;
         private int visibility;
         private Wind wind;
-        private CloudsCW clouds;
+        private Clouds clouds;
         private int dt;
         private Sys sys;
         private int timezone;

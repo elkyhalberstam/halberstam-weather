@@ -1,4 +1,4 @@
-package halberstam.weather.currentWeather;
+package halberstam.weather.currentweather;
 
 public class Weather {
     private int id;

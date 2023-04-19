@@ -1,7 +1,7 @@
 package halberstam.weather;
 
-import halberstam.weather.currentWeather.CurrentWeather;
-import halberstam.weather.fiveDayForcast.FiveDayForcast;
+import halberstam.weather.currentweather.CurrentWeather;
+import halberstam.weather.fivedayforcast.FiveDayForcast;
 import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;

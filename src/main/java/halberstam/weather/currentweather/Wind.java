@@ -1,9 +1,7 @@
-
-package halberstam.weather.fiveDayForcast;
+package halberstam.weather.currentweather;
 
 public class Wind {
-
+    private double speed;
     private double deg;
     private double gust;
-    private double speed;
 }

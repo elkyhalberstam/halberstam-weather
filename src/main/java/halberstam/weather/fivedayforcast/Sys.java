@@ -1,5 +1,5 @@
 
-package halberstam.weather.fiveDayForcast;
+package halberstam.weather.fivedayforcast;
 
 public class Sys {
 

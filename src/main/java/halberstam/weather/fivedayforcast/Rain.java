@@ -1,4 +1,4 @@
-package halberstam.weather.fiveDayForcast;
+package halberstam.weather.fivedayforcast;
 
 import com.google.gson.annotations.SerializedName;
 
