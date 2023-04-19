@@ -2,7 +2,8 @@ package halberstam.weather.currentweather;
 
 import java.util.List;
 
-public class CurrentWeather{
+public class CurrentWeather
+{
         private Coord coord;
         public List<Weather> weather;
         private String base;
