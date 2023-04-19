@@ -1,7 +1,7 @@
 package halberstam.weather;
 
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import halberstam.weather.currentWeather.CurrentWeather;
+import halberstam.weather.fiveDayForcast.FiveDayForcast;
 import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -25,11 +25,32 @@ class WeatherServiceTest {
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
         //when
-        CurrentWeather weather = service.getCurrentWeather().blockingFirst();
+        CurrentWeather weather = service.getCurrentWeather("Passaic").blockingFirst();
 
         //then
         assertNotNull(weather);
-        assertNotNull(weather.getWeather().get(0).getDescription());
-        assertTrue(weather.getMain().getTemp() > 0);
+        assertNotNull(weather.weather.get(0).description);
+        assertTrue(weather.main.temp > 0);
+    }
+
+    @Test
+    void getFiveDayForcast() {
+        //given
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build();
+
+        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+
+        //when
+        FiveDayForcast fiveDayForcast = service.getFiveDayForcast().blockingFirst();
+
+        //then
+        assertNotNull(fiveDayForcast);
+        //assertNotNull(fiveDayForcast.getList().getWeather().get(0).getDescription());
+        //assertTrue(fiveDayForcast.getList().getMain().getTemp() > 0);
     }
 }
