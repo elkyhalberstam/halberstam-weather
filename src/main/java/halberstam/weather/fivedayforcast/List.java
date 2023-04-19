@@ -3,7 +3,7 @@ package halberstam.weather.fivedayforcast;
 
 public class List {
 
-    private Clouds clouds;
+    public Clouds clouds;
     private double dt;
     private String dt_txt;
     private Main main;

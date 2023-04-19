@@ -50,7 +50,7 @@ class WeatherServiceTest {
 
         //then
         assertNotNull(fiveDayForcast);
-        //assertNotNull(fiveDayForcast.getList().getWeather().get(0).getDescription());
-        //assertTrue(fiveDayForcast.getList().getMain().getTemp() > 0);
+        assertNotNull(fiveDayForcast.city.name);
+        assertNotNull(fiveDayForcast.list.get(0).clouds);
     }
 }

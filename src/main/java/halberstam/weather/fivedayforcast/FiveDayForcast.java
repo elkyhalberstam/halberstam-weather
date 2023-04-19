@@ -3,10 +3,10 @@ package halberstam.weather.fivedayforcast;
 
 
 public class FiveDayForcast {
-    private City city;
+    public City city;
     private double cnt;
     private String cod;
-    private java.util.List<List> list;
+    public java.util.List<List> list;
     private double message;
 
 }
