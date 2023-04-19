@@ -1,16 +1,26 @@
 
 package halberstam.weather.fivedayforcast;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Main {
 
     private double feels_like;
-    private double grnd_level;
+    @SerializedName("grnd_level")
+
+    private double grndLevel;
     private double humidity;
     private double pressure;
     private double sea_level;
     private double temp;
-    private double temp_kf;
-    private double temp_max;
-    private double temp_min;
+    @SerializedName("temp_kf")
+
+    private double tempKf;
+    @SerializedName("temp_max")
+
+    private double tempMax;
+    @SerializedName("temp_min")
+
+    private double tempMin;
 
 }
