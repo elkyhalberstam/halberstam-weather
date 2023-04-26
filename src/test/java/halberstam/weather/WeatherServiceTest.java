@@ -46,7 +46,7 @@ class WeatherServiceTest {
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
         //when
-        FiveDayForcast fiveDayForcast = service.getFiveDayForcast().blockingFirst();
+        FiveDayForcast fiveDayForcast = service.getFiveDayForcast("Passaic").blockingFirst();
 
         //then
         assertNotNull(fiveDayForcast);
