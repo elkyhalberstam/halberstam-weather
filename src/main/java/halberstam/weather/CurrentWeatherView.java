@@ -43,11 +43,11 @@ public class CurrentWeatherView extends JComponent {
         int currTime = 0;
         int temperature1 = - 5 * (int) forcastList.get(0).main.temp;
 
-        for (int i=0; i<forcastList.size(); i++)
+        for (int i = 0; i < forcastList.size(); i++)
         {
             int temperature2 = - (int) forcastList.get(i).main.temp;
 
-            g.drawLine(currTime, temperature1,currTime+15,temperature2 * 5);
+            g.drawLine(currTime, temperature1,currTime + 15,temperature2 * 5);
 
             currTime += 15;
             temperature1 = temperature2 * 5;
