@@ -12,6 +12,5 @@ public interface OpenWeatherMapService {
 
     @GET("/data/2.5/forecast?&appid=90f7feeea989c2bfa008fde0a22016ba&units=imperial")
     Observable<FiveDayForcast> getFiveDayForcast(@Query("q") String location);
-    Observable<FiveDayForcast> getFiveDayForcast();
 }
 
