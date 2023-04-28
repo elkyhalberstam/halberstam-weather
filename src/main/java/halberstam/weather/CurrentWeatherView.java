@@ -1,22 +1,56 @@
 package halberstam.weather;
 
+import halberstam.weather.fivedayforcast.FiveDayForcast;
+import halberstam.weather.fivedayforcast.List;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class CurrentWeatherView extends JComponent {
-    int x = 0;
+
+    FiveDayForcast fiveDayForcast;
+
+    public CurrentWeatherView() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build();
+
+        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+
+        FiveDayForcast fiveDayForcast = service.getFiveDayForcast("Passaic").blockingFirst();
+        this.fiveDayForcast = fiveDayForcast;
+    }
+
+    public void setForcast(FiveDayForcast fiveDayForcast){
+        this.fiveDayForcast = fiveDayForcast;
+        repaint();
+    }
+
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
-        g.drawLine(0,0,100,100);
-        g.drawOval(0,0,100,100);
-
-        g.setColor(Color.GREEN);
-
         int height = getHeight();
-        g.fillOval(x-50,height - 50,100,100);
+        g.translate(0, height);
 
-        x++;
+
+
+        java.util.List<List> forcastList = fiveDayForcast.list;
+        int xCurrPoint = 0;
+        int temperature1 = - 5 * (int) forcastList.get(0).main.temp ;
+
+        for(int i=0; i<forcastList.size(); i++)
+        {
+            int temperature2 = - (int) forcastList.get(i).main.temp;
+
+            g.drawLine(xCurrPoint, temperature1,xCurrPoint+15,temperature2*5);
+
+            xCurrPoint += 15;
+            temperature1 = temperature2*5;
+        }
     }
 }
