@@ -26,7 +26,7 @@ public class CurrentWeatherView extends JComponent {
         this.fiveDayForcast = fiveDayForcast;
     }
 
-    public void setForcast(FiveDayForcast fiveDayForcast){
+    public void setForcast(FiveDayForcast fiveDayForcast) {
         this.fiveDayForcast = fiveDayForcast;
         repaint();
     }
@@ -40,17 +40,17 @@ public class CurrentWeatherView extends JComponent {
 
 
         java.util.List<List> forcastList = fiveDayForcast.list;
-        int xCurrPoint = 0;
-        int temperature1 = - 5 * (int) forcastList.get(0).main.temp ;
+        int currTime = 0;
+        int temperature1 = - 5 * (int) forcastList.get(0).main.temp;
 
-        for(int i=0; i<forcastList.size(); i++)
+        for (int i=0; i<forcastList.size(); i++)
         {
             int temperature2 = - (int) forcastList.get(i).main.temp;
 
-            g.drawLine(xCurrPoint, temperature1,xCurrPoint+15,temperature2*5);
+            g.drawLine(currTime, temperature1,currTime+15,temperature2 * 5);
 
-            xCurrPoint += 15;
-            temperature1 = temperature2*5;
+            currTime += 15;
+            temperature1 = temperature2 * 5;
         }
     }
 }

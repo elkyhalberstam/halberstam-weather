@@ -42,7 +42,8 @@ public class CurrentWeatherFrame extends JFrame {
 
             OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
-            FiveDayForcast fiveDayForcast = service.getFiveDayForcast(enterCityName.getText()).blockingFirst();
+            FiveDayForcast fiveDayForcast =
+                    service.getFiveDayForcast(enterCityName.getText()).blockingFirst();
             currentWeatherView.setForcast(fiveDayForcast);
 
         });
