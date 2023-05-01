@@ -1,6 +1,5 @@
 package halberstam.weather;
 
-import halberstam.weather.fivedayforcast.FiveDayForcast;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -45,12 +44,12 @@ public class CurrentWeatherFrame extends JFrame {
 
         enterCityButton.addActionListener(e -> {
 
-            Disposable disposable = service.getFiveDayForcast(enterCityName.getText())
+            Disposable disposable = service.getFiveDayForecast(enterCityName.getText())
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.newThread())
                     .subscribe(
-                            fiveDayForcast -> {
-                                currentWeatherView.setForcast(fiveDayForcast);
+                            fiveDayForecast -> {
+                                currentWeatherView.setForecast(fiveDayForecast);
                             },
                             Throwable::printStackTrace
                     );

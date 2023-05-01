@@ -1,17 +1,17 @@
 package halberstam.weather;
 
-import halberstam.weather.fivedayforcast.FiveDayForcast;
-import halberstam.weather.fivedayforcast.List;
+import halberstam.weather.fivedayforecast.FiveDayForecast;
+import halberstam.weather.fivedayforecast.List;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class CurrentWeatherView extends JComponent {
 
-    FiveDayForcast fiveDayForcast;
+    FiveDayForecast fiveDayForecast;
 
-    public void setForcast(FiveDayForcast fiveDayForcast) {
-        this.fiveDayForcast = fiveDayForcast;
+    public void setForecast(FiveDayForecast fiveDayForecast) {
+        this.fiveDayForecast = fiveDayForecast;
         repaint();
     }
 
@@ -22,14 +22,14 @@ public class CurrentWeatherView extends JComponent {
         g.translate(0, height);
 
 
-        if (fiveDayForcast != null)
+        if (fiveDayForecast != null)
         {
-            java.util.List<List> forcastList = fiveDayForcast.list;
+            java.util.List<List> forecastList = fiveDayForecast.list;
             int currTime = 0;
-            int temperature1 = -5 * (int) forcastList.get(0).main.temp;
+            int temperature1 = -5 * (int) forecastList.get(0).main.temp;
 
-            for (int i = 0; i < forcastList.size(); i++) {
-                int temperature2 = -(int) forcastList.get(i).main.temp;
+            for (int i = 0; i < forecastList.size(); i++) {
+                int temperature2 = -(int) forecastList.get(i).main.temp;
 
                 g.drawLine(currTime, temperature1, currTime + 15, temperature2 * 5);
 
