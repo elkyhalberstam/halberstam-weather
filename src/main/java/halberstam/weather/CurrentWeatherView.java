@@ -22,7 +22,7 @@ public class CurrentWeatherView extends JComponent {
         g.translate(0, height);
 
 
-        if(fiveDayForcast!=null)
+        if (fiveDayForcast != null)
         {
             java.util.List<List> forcastList = fiveDayForcast.list;
             int currTime = 0;
