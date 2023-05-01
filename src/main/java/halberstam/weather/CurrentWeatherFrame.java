@@ -51,7 +51,7 @@ public class CurrentWeatherFrame extends JFrame {
                     .subscribe(
                             fiveDayForcast -> {
                                 currentWeatherView.setForcast(fiveDayForcast);
-                            } ,
+                            },
                             Throwable::printStackTrace
                     );
 
