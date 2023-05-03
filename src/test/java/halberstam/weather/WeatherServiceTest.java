@@ -1,7 +1,7 @@
 package halberstam.weather;
 
 import halberstam.weather.currentweather.CurrentWeather;
-import halberstam.weather.fivedayforcast.FiveDayForcast;
+import halberstam.weather.fivedayforecast.FiveDayForecast;
 import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -34,7 +34,7 @@ class WeatherServiceTest {
     }
 
     @Test
-    void getFiveDayForcast() {
+    void getFiveDayForecast() {
         //given
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -46,11 +46,11 @@ class WeatherServiceTest {
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
         //when
-        FiveDayForcast fiveDayForcast = service.getFiveDayForcast("Passaic").blockingFirst();
+        FiveDayForecast fiveDayForecast = service.getFiveDayForecast("Passaic").blockingFirst();
 
         //then
-        assertNotNull(fiveDayForcast);
-        assertNotNull(fiveDayForcast.city.name);
-        assertNotNull(fiveDayForcast.list.get(0).clouds);
+        assertNotNull(fiveDayForecast);
+        assertNotNull(fiveDayForecast.city.name);
+        assertNotNull(fiveDayForecast.list.get(0).clouds);
     }
 }

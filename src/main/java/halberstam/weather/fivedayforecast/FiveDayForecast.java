@@ -1,8 +1,8 @@
 
-package halberstam.weather.fivedayforcast;
+package halberstam.weather.fivedayforecast;
 
 
-public class FiveDayForcast {
+public class FiveDayForecast {
     public City city;
     private double cnt;
     private String cod;
