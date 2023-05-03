@@ -61,9 +61,7 @@ public class CurrentWeatherFrame extends JFrame {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(
-                        fiveDayForecast -> {
-                            currentWeatherView.setForecast(fiveDayForecast);
-                        },
+                        currentWeatherView::setForecast,
                         Throwable::printStackTrace
                 );
     }
