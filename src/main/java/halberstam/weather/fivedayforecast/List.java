@@ -6,7 +6,7 @@ public class List {
     public Clouds clouds;
     private double dt;
     private String dt_txt;
-    private Main main;
+    public Main main;
     private double pop;
 
     private Rain rain;

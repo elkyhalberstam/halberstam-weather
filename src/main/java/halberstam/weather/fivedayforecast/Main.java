@@ -12,7 +12,7 @@ public class Main {
     private double humidity;
     private double pressure;
     private double sea_level;
-    private double temp;
+    public double temp;
     @SerializedName("temp_kf")
 
     private double tempKf;
