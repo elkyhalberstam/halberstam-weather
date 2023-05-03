@@ -47,7 +47,7 @@ class WeatherServiceTest {
 
         //when
         FiveDayForecast fiveDayForecast = service.getFiveDayForecast("Passaic").blockingFirst();
-
+        System.out.println(fiveDayForecast.list.get(0).main.temp);
         //then
         assertNotNull(fiveDayForecast);
         assertNotNull(fiveDayForecast.city.name);
