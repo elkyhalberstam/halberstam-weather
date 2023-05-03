@@ -1,6 +1,5 @@
 package halberstam.weather;
 
-import halberstam.weather.fivedayforecast.FiveDayForecast;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -11,6 +10,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CurrentWeatherFrame extends JFrame {
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://api.openweathermap.org/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build();
+
+    OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+
+    CurrentWeatherView currentWeatherView = new CurrentWeatherView();
+
     public CurrentWeatherFrame()
     {
         setSize(650, 600);
@@ -32,32 +42,29 @@ public class CurrentWeatherFrame extends JFrame {
         panel.add(enterCityPanel, BorderLayout.NORTH);
 
         setContentPane(panel);
-        CurrentWeatherView currentWeatherView = new CurrentWeatherView();
         panel.add(currentWeatherView, BorderLayout.CENTER);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build();
 
-        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
-        FiveDayForecast intitalFiveDayForecast =
-                service.getFiveDayForecast(enterCityName.getText()).blockingFirst();
-        currentWeatherView.setForecast(intitalFiveDayForecast);
+        generateFiveDayForecast(enterCityName.getText());
+
 
         enterCityButton.addActionListener(e -> {
 
-            Disposable disposable = service.getFiveDayForecast(enterCityName.getText())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(Schedulers.newThread())
-                    .subscribe(
-                            fiveDayForecast -> {
-                                currentWeatherView.setForecast(fiveDayForecast);
-                            },
-                            Throwable::printStackTrace
-                    );
+            generateFiveDayForecast(enterCityName.getText());
 
         });
+    }
+
+    private void generateFiveDayForecast (String cityName)
+    {
+        Disposable disposable = service.getFiveDayForecast(cityName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(
+                        fiveDayForecast -> {
+                            currentWeatherView.setForecast(fiveDayForecast);
+                        },
+                        Throwable::printStackTrace
+                );
     }
 }
