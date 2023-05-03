@@ -1,5 +1,6 @@
 package halberstam.weather;
 
+import halberstam.weather.fivedayforecast.FiveDayForecast;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -41,6 +42,9 @@ public class CurrentWeatherFrame extends JFrame {
                 .build();
 
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+        FiveDayForecast intitalFiveDayForecast =
+                service.getFiveDayForecast(enterCityName.getText()).blockingFirst();
+        currentWeatherView.setForecast(intitalFiveDayForecast);
 
         enterCityButton.addActionListener(e -> {
 
