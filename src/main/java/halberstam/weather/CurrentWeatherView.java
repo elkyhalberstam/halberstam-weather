@@ -3,18 +3,23 @@ package halberstam.weather;
 import halberstam.weather.fivedayforecast.FiveDayForecast;
 import halberstam.weather.fivedayforecast.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.*;
 import java.awt.*;
 
+@Singleton
 public class CurrentWeatherView extends JComponent {
 
-    FiveDayForecast fiveDayForecast;
+    private FiveDayForecast fiveDayForecast;
+    @Inject
+    public CurrentWeatherView() {
 
+    }
     public void setForecast(FiveDayForecast fiveDayForecast) {
         this.fiveDayForecast = fiveDayForecast;
         repaint();
     }
-
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);

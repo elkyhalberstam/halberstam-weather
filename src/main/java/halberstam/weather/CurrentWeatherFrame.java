@@ -4,15 +4,21 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
 
 public class CurrentWeatherFrame extends JFrame {
 
     private ForecastWeatherController controller;
+    private final CurrentWeatherView view;
+    @Inject
 
-    public CurrentWeatherFrame()
+    public CurrentWeatherFrame(CurrentWeatherView view, ForecastWeatherController controller)
     {
+        this.view = view;
+        this.controller =  controller;
+
         setSize(650, 600);
         setTitle("Current Weather");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -32,8 +38,7 @@ public class CurrentWeatherFrame extends JFrame {
         panel.add(enterCityPanel, BorderLayout.NORTH);
 
         setContentPane(panel);
-        CurrentWeatherView currentWeatherView = new CurrentWeatherView();
-        panel.add(currentWeatherView, BorderLayout.CENTER);
+        panel.add(this.view, BorderLayout.CENTER);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
@@ -43,12 +48,12 @@ public class CurrentWeatherFrame extends JFrame {
 
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
-        controller = new ForecastWeatherController(currentWeatherView, service);
+        controller = new ForecastWeatherController(this.view, service);
         controller.updateWeather(enterCityName.getText());
 
 
         enterCityButton.addActionListener(e -> {
-            controller.updateWeather(enterCityName.getText());
+            this.controller.updateWeather(enterCityName.getText());
         });
     }
 
