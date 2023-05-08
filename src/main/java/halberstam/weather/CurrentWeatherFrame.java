@@ -12,6 +12,7 @@ public class CurrentWeatherFrame extends JFrame {
 
     private ForecastWeatherController controller;
     private final CurrentWeatherView view;
+
     @Inject
 
     public CurrentWeatherFrame(CurrentWeatherView view, ForecastWeatherController controller)

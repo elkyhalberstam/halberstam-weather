@@ -2,12 +2,13 @@ package halberstam.weather;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-
 import javax.inject.Inject;
 
 public class ForecastWeatherController {
+
     private CurrentWeatherView view;
     private OpenWeatherMapService service;
+
     @Inject
 
     public ForecastWeatherController(
@@ -17,6 +18,7 @@ public class ForecastWeatherController {
         this.view = view;
         this.service = service;
     }
+
     public void updateWeather(String cityName)
     {
         Disposable disposable = service.getFiveDayForecast(cityName)

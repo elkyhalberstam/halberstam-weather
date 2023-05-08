@@ -20,6 +20,7 @@ class ForecastWeatherControllerTest {
         RxJavaPlugins.setIoSchedulerHandler(scheduler -> Schedulers.trampoline());
         RxJavaPlugins.setNewThreadSchedulerHandler(scheduler -> Schedulers.trampoline());
     }
+
     @Test
     void updateWeather() {
         //given

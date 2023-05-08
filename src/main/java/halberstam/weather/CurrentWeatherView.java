@@ -12,7 +12,9 @@ import java.awt.*;
 public class CurrentWeatherView extends JComponent {
 
     private FiveDayForecast fiveDayForecast;
+
     @Inject
+
     public CurrentWeatherView() {
 
     }
