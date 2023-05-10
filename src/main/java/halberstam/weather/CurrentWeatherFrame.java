@@ -1,28 +1,25 @@
 package halberstam.weather;
 
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
 
 public class CurrentWeatherFrame extends JFrame {
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build();
+    private ForecastWeatherController controller;
+    private final CurrentWeatherView view;
 
-    OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+    @Inject
 
-    CurrentWeatherView currentWeatherView = new CurrentWeatherView();
-
-    public CurrentWeatherFrame()
+    public CurrentWeatherFrame(CurrentWeatherView view, ForecastWeatherController controller)
     {
+        this.view = view;
+        this.controller =  controller;
+
         setSize(650, 600);
         setTitle("Current Weather");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -42,27 +39,24 @@ public class CurrentWeatherFrame extends JFrame {
         panel.add(enterCityPanel, BorderLayout.NORTH);
 
         setContentPane(panel);
-        panel.add(currentWeatherView, BorderLayout.CENTER);
+        panel.add(this.view, BorderLayout.CENTER);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build();
 
-        generateFiveDayForecast(enterCityName.getText());
+        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+
+        controller = new ForecastWeatherController(this.view, service);
+        controller.updateWeather(enterCityName.getText());
 
 
         enterCityButton.addActionListener(e -> {
-
-            generateFiveDayForecast(enterCityName.getText());
-
+            this.controller.updateWeather(enterCityName.getText());
         });
     }
 
-    private void generateFiveDayForecast (String cityName)
-    {
-        Disposable disposable = service.getFiveDayForecast(cityName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(
-                        currentWeatherView::setForecast,
-                        Throwable::printStackTrace
-                );
-    }
+
 }
