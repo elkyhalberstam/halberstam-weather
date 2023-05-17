@@ -16,7 +16,7 @@ public class CurrentWeatherController {
     private JLabel degreesLabel;
 
     @Inject
-    public CurrentWeatherController( OpenWeatherMapService service,
+    public CurrentWeatherController(OpenWeatherMapService service,
                                      @Named("imageLabel") JLabel imageLabel,
                                      @Named("degreesLabel") JLabel degreesLabel) {
         this.service = service;
@@ -38,7 +38,7 @@ public class CurrentWeatherController {
     public void setCurrentWeather(CurrentWeather currentWeather) throws MalformedURLException {
         degreesLabel.setText(String.valueOf(currentWeather.main.temp));
         String icon = currentWeather.weather.get(0).icon;
-        String url = "https://openweathermap.org/img/w/" +icon +".png";
+        String url = "https://openweathermap.org/img/w/" + icon + ".png";
         imageLabel.setIcon(new ImageIcon(new URL(url)));
     }
 }
