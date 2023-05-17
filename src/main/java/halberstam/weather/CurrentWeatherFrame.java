@@ -5,6 +5,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,12 +14,18 @@ public class CurrentWeatherFrame extends JFrame {
     private ForecastWeatherController controller;
     private final CurrentWeatherView view;
 
+    private CurrentWeatherController currentWeatherController;
+
     @Inject
 
-    public CurrentWeatherFrame(CurrentWeatherView view, ForecastWeatherController controller)
+    public CurrentWeatherFrame(CurrentWeatherView view, ForecastWeatherController controller,
+                               CurrentWeatherController currentWeatherController,
+                               @Named("imageLabel") JLabel imageLabel,
+                               @Named("degreesLabel") JLabel degreesLabel)
     {
         this.view = view;
         this.controller =  controller;
+        this.currentWeatherController = currentWeatherController;
 
         setSize(650, 600);
         setTitle("Current Weather");
@@ -55,6 +62,7 @@ public class CurrentWeatherFrame extends JFrame {
 
         enterCityButton.addActionListener(e -> {
             this.controller.updateWeather(enterCityName.getText());
+            this.currentWeatherController.updateWeather(enterCityName.getText());
         });
     }
 
