@@ -18,7 +18,8 @@ public class CurrentWeatherFrame extends JFrame {
 
     @Inject
 
-    public CurrentWeatherFrame(CurrentWeatherView view, ForecastWeatherController controller,
+    public CurrentWeatherFrame(CurrentWeatherView view,
+                               ForecastWeatherController controller,
                                CurrentWeatherController currentWeatherController,
                                @Named("imageLabel") JLabel imageLabel,
                                @Named("degreesLabel") JLabel degreesLabel)
@@ -45,20 +46,17 @@ public class CurrentWeatherFrame extends JFrame {
 
         panel.add(enterCityPanel, BorderLayout.NORTH);
 
+
+        JPanel currentWeatherPanel = new JPanel();
+        currentWeatherPanel.add(imageLabel);
+        currentWeatherPanel.add(degreesLabel);
+        enterCityPanel.add(currentWeatherPanel, BorderLayout.SOUTH);
+
         setContentPane(panel);
         panel.add(this.view, BorderLayout.CENTER);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build();
-
-        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
-
-        controller = new ForecastWeatherController(this.view, service);
         controller.updateWeather(enterCityName.getText());
-
+        currentWeatherController.updateWeather(enterCityName.getText());
 
         enterCityButton.addActionListener(e -> {
             this.controller.updateWeather(enterCityName.getText());
